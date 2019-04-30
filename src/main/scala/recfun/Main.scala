@@ -8,11 +8,17 @@ object Main {
         print(pascal(col, row) + " ")
       println()
     }
-    println("\n Right parenthesis")
+    println("\nRight parenthesis")
     println("True : " + balance("(if (zero? x) max (/ 1 x))".toList))
     println("True : " + balance("I told him (that it’s not (yet) done). (But he wasn’t listening)".toList))
     println("False : " + balance(":-)".toList))
     println("False : " + balance("())(".toList))
+    println("\nCounting change")
+    println("5 : " + countChange(5, List(1,2,3)))
+    println("3 : " + countChange(4, List(1,2)))
+    println("1 : " + countChange(7, List(1)))
+    println("1 : " + countChange(0, List(1,2)))
+    println("0 : " + countChange(4, List()))
   }
 
   /**
@@ -42,6 +48,6 @@ object Main {
    */
     def countChange(money: Int, coins: List[Int]): Int =
       if(money == 0) 1
-      else if(coins.isEmpty) 0
-      else
+      else if(money > 0 && coins.nonEmpty) countChange(money-coins.head, coins) + countChange(money, coins.tail)
+      else 0
   }
